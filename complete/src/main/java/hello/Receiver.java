@@ -6,12 +6,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class Receiver {
 
-    private CountDownLatch latch = new CountDownLatch(2);
+    private CountDownLatch latch = new CountDownLatch(3);
 
     public void receiveMessage(Object message) {
-    	System.out.println(message.getClass().toString());
-    	if (message instanceof byte[])
-    	System.out.println(new String((byte[]) message));
+    	System.out.println(String.format("%s : %s", message.getClass(),
+    			message instanceof byte[] ? new String((byte[]) message) : message.toString()));
         System.out.println("Received <" + message + ">");
         latch.countDown();
     }
